@@ -28,7 +28,7 @@ namespace Cristea_Anamaria_Proiect.Pages.MedicalStaff
                 return NotFound();
             }
 
-            MedicalStaff = await _context.MedicalStaff.FirstOrDefaultAsync(m => m.Id == id);
+            MedicalStaff = await _context.MedicalStaff.Include(m => m.ConsultationRoom).FirstOrDefaultAsync(m => m.Id == id);
 
             if (MedicalStaff == null)
             {

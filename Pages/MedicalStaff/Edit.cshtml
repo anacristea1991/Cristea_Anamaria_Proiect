@@ -14,6 +14,9 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MedicalStaff.Id" />
+            <input type="hidden" asp-for="MedicalStaff.ConsultationRoom.Floor" />
+            <input type="hidden" asp-for="MedicalStaff.ConsultationRoom.RoomNumber" />
+            <input type="hidden" asp-for="MedicalStaff.ConsultationRoom.IsAvailable" />
             <div class="form-group">
                 <label asp-for="MedicalStaff.FirstName" class="control-label"></label>
                 <input asp-for="MedicalStaff.FirstName" class="form-control" />
@@ -36,8 +39,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="MedicalStaff.Specialisation" class="control-label"></label>
-                <select asp-for="MedicalStaff.Specialisation" class="form-control"></select>
+                <select asp-for="MedicalStaff.Specialisation" class="form-control" asp-items="ViewBag.Specialisations"></select>
                 <span asp-validation-for="MedicalStaff.Specialisation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MedicalStaff.ConsultationRoom" class="control-label"></label>
+                <select asp-for="MedicalStaff.ConsultationRoom.Id" class="form-control" asp-items="ViewBag.Rooms"></select>
+                <span asp-validation-for="MedicalStaff.ConsultationRoom" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

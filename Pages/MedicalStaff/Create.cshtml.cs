@@ -21,6 +21,8 @@ namespace Cristea_Anamaria_Proiect.Pages.MedicalStaff
 
         public IActionResult OnGet()
         {
+            ViewData["Specialisations"] = GetSpecialisations();
+            ViewData["Rooms"] = GetRooms();
             return Page();
         }
 
@@ -32,13 +34,27 @@ namespace Cristea_Anamaria_Proiect.Pages.MedicalStaff
         {
             if (!ModelState.IsValid)
             {
+                ViewData["Specialisations"] = GetSpecialisations();
+                ViewData["Rooms"] = GetRooms();
                 return Page();
             }
-
+            MedicalStaff.ConsultationRoom = _context.Room.First(r => r.Id == MedicalStaff.ConsultationRoomId);
             _context.MedicalStaff.Add(MedicalStaff);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+        }
+        private SelectList GetSpecialisations()
+        {
+            var specialisations = from Specialisation s in Enum.GetValues(typeof(Specialisation))
+                                  select new { ID = (int)s, Name = s.ToString() };
+            return new SelectList(specialisations, "ID", "Name");
+        }
+        private SelectList GetRooms()
+        {
+            var rooms = from Room r in _context.Room.Where(r => r.IsAvailable).ToList()
+                        select new { ID = (int)r.Id, Name = string.Format("{0}.{1}", r.Floor, r.RoomNumber) };
+            return new SelectList(rooms, "ID", "Name");
         }
     }
 }

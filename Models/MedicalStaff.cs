@@ -17,10 +17,10 @@ namespace Cristea_Anamaria_Proiect.Models
         [Required]
         public string LastName { get; set; }
         [Display(Name = "Start Time")]
-        [Required]
+        [Required(ErrorMessage = "The {0} is required. Value format hh:mm")]
         public TimeSpan StartTime { get; set; }
         [Display(Name = "End Time")]
-        [Required]
+        [Required(ErrorMessage = "The {0} is required. Value format hh:mm")]
         public TimeSpan EndTime { get; set; }
         [Display(Name = "Specialisation")]
         public Specialisation Specialisation { get; set; }

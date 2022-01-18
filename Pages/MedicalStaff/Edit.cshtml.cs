@@ -30,12 +30,14 @@ namespace Cristea_Anamaria_Proiect.Pages.MedicalStaff
                 return NotFound();
             }
 
-            MedicalStaff = await _context.MedicalStaff.FirstOrDefaultAsync(m => m.Id == id);
+            MedicalStaff = await _context.MedicalStaff.Include(m=>m.ConsultationRoom).FirstOrDefaultAsync(m => m.Id == id);
 
             if (MedicalStaff == null)
             {
                 return NotFound();
             }
+            ViewData["Specialisations"] = GetSpecialisations();
+            ViewData["Rooms"] = GetRooms();
             return Page();
         }
 
@@ -45,6 +47,8 @@ namespace Cristea_Anamaria_Proiect.Pages.MedicalStaff
         {
             if (!ModelState.IsValid)
             {
+                ViewData["Specialisations"] = GetSpecialisations();
+                ViewData["Rooms"] = GetRooms();
                 return Page();
             }
 
@@ -72,6 +76,18 @@ namespace Cristea_Anamaria_Proiect.Pages.MedicalStaff
         private bool MedicalStaffExists(int id)
         {
             return _context.MedicalStaff.Any(e => e.Id == id);
+        }
+        private SelectList GetSpecialisations()
+        {
+            var specialisations = from Specialisation s in Enum.GetValues(typeof(Specialisation))
+                                  select new { ID = (int)s, Name = s.ToString() };
+            return new SelectList(specialisations, "ID", "Name");
+        }
+        private SelectList GetRooms()
+        {
+            var rooms = from Room r in _context.Room.Where(r => r.IsAvailable).ToList()
+                        select new { ID = (int)r.Id, Name = string.Format("{0}.{1}", r.Floor, r.RoomNumber) };
+            return new SelectList(rooms, "ID", "Name");
         }
     }
 }

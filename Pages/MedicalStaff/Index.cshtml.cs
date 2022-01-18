@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Cristea_Anamaria_Proiect.Data;
 using Cristea_Anamaria_Proiect.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cristea_Anamaria_Proiect.Pages.MedicalStaff
 {
@@ -23,7 +24,7 @@ namespace Cristea_Anamaria_Proiect.Pages.MedicalStaff
 
         public async Task OnGetAsync()
         {
-            MedicalStaff = await _context.MedicalStaff.ToListAsync();
+            MedicalStaff = await _context.MedicalStaff.Include(m=>m.ConsultationRoom).ToListAsync();
         }
     }
 }
