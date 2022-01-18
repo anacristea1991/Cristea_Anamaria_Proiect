@@ -34,11 +34,20 @@ namespace Cristea_Anamaria_Proiect.Pages.Counties
             {
                 return Page();
             }
-
+            
+            if (CountyExists(County.Id))
+            {
+                ModelState.AddModelError("County.Id", "A county with this code is already added!");
+                return Page();
+            }
             _context.County.Add(County);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+        }
+        private bool CountyExists(string id)
+        {
+            return _context.County.Any(e => e.Id == id);
         }
     }
 }
