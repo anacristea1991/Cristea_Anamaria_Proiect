@@ -13,7 +13,6 @@ namespace Cristea_Anamaria_Proiect.Models
         [Required]
         public string Name { get; set; }
         public County County { get; set; }
-        [NotMapped]
-        public string CityCountyId { set; get; }
+        
     }
 }

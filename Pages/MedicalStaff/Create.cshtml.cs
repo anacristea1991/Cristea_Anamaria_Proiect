@@ -32,13 +32,15 @@ namespace Cristea_Anamaria_Proiect.Pages.MedicalStaff
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            ModelState.Remove("MedicalStaff.ConsultationRoom.Floor");
+            ModelState.Remove("MedicalStaff.ConsultationRoom.RoomNumber");
             if (!ModelState.IsValid)
             {
                 ViewData["Specialisations"] = GetSpecialisations();
                 ViewData["Rooms"] = GetRooms();
                 return Page();
             }
-            MedicalStaff.ConsultationRoom = _context.Room.First(r => r.Id == MedicalStaff.ConsultationRoomId);
+            MedicalStaff.ConsultationRoom = _context.Room.First(r => r.Id == MedicalStaff.ConsultationRoom.Id);
             _context.MedicalStaff.Add(MedicalStaff);
             await _context.SaveChangesAsync();
 

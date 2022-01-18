@@ -15,9 +15,9 @@ namespace Cristea_Anamaria_Proiect.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<City>().Ignore(t => t.CityCountyId);
-            modelBuilder.Entity<MedicalStaff>().Ignore(t => t.ConsultationRoomId);
-            base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<City>().Ignore(t => t.CityCountyId);
+            //modelBuilder.Entity<MedicalStaff>().Ignore(t => t.ConsultationRoomId);
+            //base.OnModelCreating(modelBuilder);
         }
         public DbSet<Cristea_Anamaria_Proiect.Models.City> City { get; set; }
 

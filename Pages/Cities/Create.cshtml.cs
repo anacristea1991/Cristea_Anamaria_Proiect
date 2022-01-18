@@ -31,12 +31,13 @@ namespace Cristea_Anamaria_Proiect.Pages.Cities
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            ModelState.Remove("City.County.Name");
             if (!ModelState.IsValid)
             {
                 ViewData["Counties"] = GetCounties();
                 return Page();
             }
-            City.County = _context.County.First(c => c.Id == City.CityCountyId);
+            City.County = _context.County.First(c => c.Id == City.County.Id);
             _context.City.Add(City);
             await _context.SaveChangesAsync();
 

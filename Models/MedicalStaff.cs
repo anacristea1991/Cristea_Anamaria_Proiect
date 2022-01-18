@@ -26,7 +26,5 @@ namespace Cristea_Anamaria_Proiect.Models
         public Specialisation Specialisation { get; set; }
         [Display(Name = "ConsultationRoom")]
         public Room ConsultationRoom { get; set; }
-        [NotMapped]
-        public int ConsultationRoomId { set; get; }
     }
 }

@@ -4,14 +4,16 @@ using Cristea_Anamaria_Proiect.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Cristea_Anamaria_Proiect.Migrations
 {
     [DbContext(typeof(Cristea_Anamaria_ProiectContext))]
-    partial class Cristea_Anamaria_ProiectContextModelSnapshot : ModelSnapshot
+    [Migration("20220118184855_DeleteColumn")]
+    partial class DeleteColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
