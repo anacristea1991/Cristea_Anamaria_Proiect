@@ -28,7 +28,7 @@ namespace Cristea_Anamaria_Proiect.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CountyId")
+                    b.Property<string>("CityCountyId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -36,7 +36,7 @@ namespace Cristea_Anamaria_Proiect.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountyId");
+                    b.HasIndex("CityCountyId");
 
                     b.ToTable("City");
                 });
@@ -172,7 +172,7 @@ namespace Cristea_Anamaria_Proiect.Migrations
                 {
                     b.HasOne("Cristea_Anamaria_Proiect.Models.County", "County")
                         .WithMany()
-                        .HasForeignKey("CountyId");
+                        .HasForeignKey("CityCountyId");
 
                     b.Navigation("County");
                 });

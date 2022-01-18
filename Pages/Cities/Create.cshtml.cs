@@ -21,6 +21,7 @@ namespace Cristea_Anamaria_Proiect.Pages.Cities
 
         public IActionResult OnGet()
         {
+            ViewData["Counties"] = GetCounties();
             return Page();
         }
 
@@ -32,13 +33,20 @@ namespace Cristea_Anamaria_Proiect.Pages.Cities
         {
             if (!ModelState.IsValid)
             {
+                ViewData["Counties"] = GetCounties();
                 return Page();
             }
-
+            City.County = _context.County.First(c => c.Id == City.CityCountyId);
             _context.City.Add(City);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+        }
+        private SelectList GetCounties()
+        {
+            var counties= from County c in _context.County.ToList()
+                          select new { ID = c.Id, Name = string.Format("{0}-{1}", c.Id, c.Name) };
+            return new SelectList(counties, "ID", "Name");
         }
     }
 }

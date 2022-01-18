@@ -17,7 +17,7 @@ namespace Cristea_Anamaria_Proiect.Models
         public int RoomNumber { get; set; }
         [Display(Name = "Description")]
         public string Description { get; set; }
-        [Display(Name = "IsAvailable")]
+        [Display(Name = "Is Available?")]
         public bool IsAvailable { get; set; }
     }
 }

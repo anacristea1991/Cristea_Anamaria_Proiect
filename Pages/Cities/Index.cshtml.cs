@@ -23,7 +23,7 @@ namespace Cristea_Anamaria_Proiect.Pages.Cities
 
         public async Task OnGetAsync()
         {
-            City = await _context.City.ToListAsync();
+            City = await _context.City.Include(m => m.County).ToListAsync();
         }
     }
 }

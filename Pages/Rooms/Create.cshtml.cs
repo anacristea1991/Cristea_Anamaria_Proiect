@@ -34,7 +34,12 @@ namespace Cristea_Anamaria_Proiect.Pages.Rooms
             {
                 return Page();
             }
-
+            var existingRoom = _context.Room.FirstOrDefault(r => r.Floor == Room.Floor && r.RoomNumber == Room.RoomNumber);
+            if (existingRoom != null)
+            {
+                ModelState.AddModelError(string.Empty, "This room already exists!");
+                return Page();
+            }
             _context.Room.Add(Room);
             await _context.SaveChangesAsync();
 

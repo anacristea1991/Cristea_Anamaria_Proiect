@@ -117,7 +117,7 @@ namespace Cristea_Anamaria_Proiect.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_City_CountyId",
                 table: "City",
-                column: "CountyId");
+                column: "CityCountyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MedicalStaff_ConsultationRoomId1",

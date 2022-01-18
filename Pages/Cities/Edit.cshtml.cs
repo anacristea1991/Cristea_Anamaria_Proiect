@@ -30,12 +30,13 @@ namespace Cristea_Anamaria_Proiect.Pages.Cities
                 return NotFound();
             }
 
-            City = await _context.City.FirstOrDefaultAsync(m => m.Id == id);
-
+            City = await _context.City.Include(m => m.County).FirstOrDefaultAsync(m => m.Id == id);
+            
             if (City == null)
             {
                 return NotFound();
             }
+            ViewData["Counties"] = GetCounties();
             return Page();
         }
 
@@ -45,6 +46,7 @@ namespace Cristea_Anamaria_Proiect.Pages.Cities
         {
             if (!ModelState.IsValid)
             {
+                ViewData["Counties"] = GetCounties();
                 return Page();
             }
 
@@ -72,6 +74,12 @@ namespace Cristea_Anamaria_Proiect.Pages.Cities
         private bool CityExists(int id)
         {
             return _context.City.Any(e => e.Id == id);
+        }
+        private SelectList GetCounties()
+        {
+            var counties = from County c in _context.County.ToList()
+                           select new { ID = c.Id, Name = string.Format("{0}-{1}", c.Id, c.Name) };
+            return new SelectList(counties, "ID", "Name");
         }
     }
 }
