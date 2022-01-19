@@ -1,0 +1,57 @@
+﻿@page
+@model Cristea_Anamaria_Proiect.Pages.Patients.AppointmentsModel
+@{
+}
+<h1>Appointments list</h1>
+@if (Model.Appointments.Any())
+{
+    var patient = Model.Appointments[0].Patient;
+    <h2>Appointments for @patient.FirstName @patient.LastName</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appointments[0].Patient)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appointments[0].MedicalStaff)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appointments[0].Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appointments[0].Details)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Appointments)
+            {
+                <tr>
+                    <td>
+                        @(item.Patient.FirstName + " " + item.Patient.LastName)
+                    </td>
+                    <td>
+                        @(item.MedicalStaff.FirstName + " " + item.MedicalStaff.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Details)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div>
+        <p>No appointments</p>
+    </div>
+}
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>

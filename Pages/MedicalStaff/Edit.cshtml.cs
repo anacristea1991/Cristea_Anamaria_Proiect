@@ -45,6 +45,10 @@ namespace Cristea_Anamaria_Proiect.Pages.MedicalStaff
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (MedicalStaff.StartTime >= MedicalStaff.EndTime)
+            {
+                ModelState.AddModelError("MedicalStaff.StartTime", "The Start time value must be greater than the End time value.");
+            }
             if (!ModelState.IsValid)
             {
                 ViewData["Specialisations"] = GetSpecialisations();

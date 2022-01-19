@@ -15,9 +15,9 @@ namespace Cristea_Anamaria_Proiect.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<City>().Ignore(t => t.CityCountyId);
-            //modelBuilder.Entity<MedicalStaff>().Ignore(t => t.ConsultationRoomId);
-            //base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Appointment>().Ignore(t => t.MedicalStaffId);
+            modelBuilder.Entity<Appointment>().Ignore(t => t.PatientId);
+            base.OnModelCreating(modelBuilder);
         }
         public DbSet<Cristea_Anamaria_Proiect.Models.City> City { get; set; }
 
@@ -28,5 +28,7 @@ namespace Cristea_Anamaria_Proiect.Data
         public DbSet<Cristea_Anamaria_Proiect.Models.MedicalStaff> MedicalStaff { get; set; }
 
         public DbSet<Cristea_Anamaria_Proiect.Models.Patient> Patient { get; set; }
+
+        public DbSet<Cristea_Anamaria_Proiect.Models.Appointment> Appointment { get; set; }
     }
 }

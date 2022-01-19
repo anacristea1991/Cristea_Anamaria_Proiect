@@ -34,12 +34,17 @@ namespace Cristea_Anamaria_Proiect.Pages.MedicalStaff
         {
             ModelState.Remove("MedicalStaff.ConsultationRoom.Floor");
             ModelState.Remove("MedicalStaff.ConsultationRoom.RoomNumber");
+            if (MedicalStaff.StartTime >= MedicalStaff.EndTime)
+            {
+                ModelState.AddModelError("MedicalStaff.StartTime", "The Start time value must be greater than the End time value.");
+            }
             if (!ModelState.IsValid)
             {
                 ViewData["Specialisations"] = GetSpecialisations();
                 ViewData["Rooms"] = GetRooms();
                 return Page();
             }
+            
             MedicalStaff.ConsultationRoom = _context.Room.First(r => r.Id == MedicalStaff.ConsultationRoom.Id);
             _context.MedicalStaff.Add(MedicalStaff);
             await _context.SaveChangesAsync();
