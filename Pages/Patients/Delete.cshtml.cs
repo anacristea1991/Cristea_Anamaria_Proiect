@@ -29,7 +29,8 @@ namespace Cristea_Anamaria_Proiect.Pages.Patients
                 return NotFound();
             }
 
-            Patient = await _context.Patient.FirstOrDefaultAsync(m => m.Id == id);
+            Patient = await _context.Patient.Include(p => p.AssignedDoctor)
+                .Include(p => p.City).ThenInclude(c => c.County).FirstOrDefaultAsync(m => m.Id == id);
 
             if (Patient == null)
             {

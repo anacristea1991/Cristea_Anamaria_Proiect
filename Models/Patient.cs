@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cristea_Anamaria_Proiect.CustomDataAnnotations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Cristea_Anamaria_Proiect.Models
     public class Patient
     {
         public int Id { get; set; }
+        [RegularExpression("([0-9]{13})", ErrorMessage = "The CNP value must contain 13 numbers.")]
         [Display(Name = "CNP")]
         [Required]
         public string CNP { get; set; }
@@ -23,6 +25,7 @@ namespace Cristea_Anamaria_Proiect.Models
         public Gender Gender { get; set; }
         [Display(Name = "Phone")]
         [Required]
+        [RegularExpression("([0-9]{10})", ErrorMessage = "The Phone value must contain 10 numbers.")]
         public string Phone { get; set; }
         [Display(Name = "Email")]
         [Required]
@@ -30,9 +33,9 @@ namespace Cristea_Anamaria_Proiect.Models
         public string Email { get; set; }
         [Display(Name = "BirthDate")]
         [Required]
+        [CurrentDate(ErrorMessage = "Date must be before current date.")]
         public DateTime BirthDate { get; set; }
         [Display(Name = "City")]
-        [Required]
         public City City { get; set; }
         [Display(Name = "Street")]
         [Required]

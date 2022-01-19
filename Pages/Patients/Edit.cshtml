@@ -14,6 +14,9 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Patient.Id" />
+            <input type="hidden" asp-for="Patient.City.Name" />
+            <input type="hidden" asp-for="Patient.AssignedDoctor.FirstName" />
+            <input type="hidden" asp-for="Patient.AssignedDoctor.LastName" />
             <div class="form-group">
                 <label asp-for="Patient.CNP" class="control-label"></label>
                 <input asp-for="Patient.CNP" class="form-control" />
@@ -31,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Patient.Gender" class="control-label"></label>
-                <select asp-for="Patient.Gender" class="form-control"></select>
+                <select asp-for="Patient.Gender" class="form-control" asp-items="ViewBag.Genders"></select>
                 <span asp-validation-for="Patient.Gender" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -50,6 +53,11 @@
                 <span asp-validation-for="Patient.BirthDate" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Patient.City" class="control-label"></label>
+                <select asp-for="Patient.City.Id" class="form-control" asp-items="ViewBag.Cities"></select>
+                <span asp-validation-for="Patient.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Patient.Street" class="control-label"></label>
                 <input asp-for="Patient.Street" class="form-control" />
                 <span asp-validation-for="Patient.Street" class="text-danger"></span>
@@ -58,6 +66,11 @@
                 <label asp-for="Patient.StreetNumber" class="control-label"></label>
                 <input asp-for="Patient.StreetNumber" class="form-control" />
                 <span asp-validation-for="Patient.StreetNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patient.AssignedDoctor" class="control-label"></label>
+                <select asp-for="Patient.AssignedDoctor.Id" class="form-control" asp-items="ViewBag.Doctors"></select>
+                <span asp-validation-for="Patient.AssignedDoctor" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

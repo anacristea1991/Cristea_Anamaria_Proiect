@@ -54,6 +54,12 @@
             @Html.DisplayFor(model => model.Patient.BirthDate)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Patient.City)
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.Patient.City.County.Id+"-"+ Model.Patient.City.Name)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Patient.Street)
         </dt>
         <dd class="col-sm-10">
@@ -64,6 +70,12 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Patient.StreetNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Patient.AssignedDoctor)
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.Patient.AssignedDoctor.FirstName+" "+ Model.Patient.AssignedDoctor.LastName)
         </dd>
     </dl>
 </div>
