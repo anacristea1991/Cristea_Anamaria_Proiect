@@ -35,32 +35,38 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.MedicalStaff) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Specialisation)
-            </td>
-            <td>
-                @(item.ConsultationRoom.Floor+"."+item.ConsultationRoom.RoomNumber)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.MedicalStaff)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Specialisation)
+                </td>
+                <td>
+                    @(item.ConsultationRoom.Floor+"."+item.ConsultationRoom.RoomNumber)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    @if (item.Specialisation == Models.Specialisation.Doctor)
+                    {
+                        @: |
+                        <a asp-page="./Patients" asp-route-id="@item.Id"> Patients </a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
