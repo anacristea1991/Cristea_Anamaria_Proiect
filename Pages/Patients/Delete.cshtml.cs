@@ -46,10 +46,16 @@ namespace Cristea_Anamaria_Proiect.Pages.Patients
                 return NotFound();
             }
 
-            Patient = await _context.Patient.FindAsync(id);
+            Patient = await _context.Patient.Include(p => p.AssignedDoctor)
+                .Include(p => p.City).ThenInclude(c => c.County).FirstOrDefaultAsync(m => m.Id == id); ;
 
             if (Patient != null)
             {
+                if (_context.Appointment.Include(c => c.Patient).Any(c => c.Patient.Id == id))
+                {
+                    ViewData["DeleteError"] = "You cannot delete a patient assigned to an appointment. Update the appointment for this patient and then try again.";
+                    return Page();
+                }
                 _context.Patient.Remove(Patient);
                 await _context.SaveChangesAsync();
             }

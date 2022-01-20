@@ -45,10 +45,15 @@ namespace Cristea_Anamaria_Proiect.Pages.Cities
                 return NotFound();
             }
 
-            City = await _context.City.FindAsync(id);
+            City = await _context.City.Include(c=>c.County).FirstOrDefaultAsync(c=>c.Id==id);
 
             if (City != null)
             {
+                if (_context.Patient.Include(c => c.City).Any(c => c.City.Id == id))
+                {
+                    ViewData["DeleteError"] = "You cannot delete a city used by a pacient. Update the patients for this city and then try again.";
+                    return Page();
+                }
                 _context.City.Remove(City);
                 await _context.SaveChangesAsync();
             }

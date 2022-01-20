@@ -11,6 +11,10 @@
 <div>
     <h4>Room</h4>
     <hr />
+    @if (ViewBag.DeleteError != null)
+    {
+        <span class="text-danger">@ViewBag.DeleteError</span>
+    }
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Room.Floor)
@@ -37,7 +41,7 @@
             @Html.DisplayFor(model => model.Room.IsAvailable)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="Room.Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

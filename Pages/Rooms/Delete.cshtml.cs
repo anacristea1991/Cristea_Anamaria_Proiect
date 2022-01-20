@@ -49,6 +49,11 @@ namespace Cristea_Anamaria_Proiect.Pages.Rooms
 
             if (Room != null)
             {
+                if (_context.MedicalStaff.Include(c => c.ConsultationRoom).Any(c => c.ConsultationRoom.Id == id))
+                {
+                    ViewData["DeleteError"] = "You cannot delete a room assigned to a doctor. Update the doctor for this room and then try again.";
+                    return Page();
+                }
                 _context.Room.Remove(Room);
                 await _context.SaveChangesAsync();
             }

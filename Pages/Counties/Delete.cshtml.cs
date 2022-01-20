@@ -49,6 +49,11 @@ namespace Cristea_Anamaria_Proiect.Pages.Counties
 
             if (County != null)
             {
+                if (_context.City.Include(c => c.County).Any(c => c.County.Id == id))
+                {
+                    ViewData["DeleteError"] = "You cannot delete a county used by a city. Update the cities for this county and then try again.";
+                    return Page();
+                }
                 _context.County.Remove(County);
                 await _context.SaveChangesAsync();
             }

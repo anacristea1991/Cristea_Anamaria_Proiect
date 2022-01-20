@@ -45,10 +45,20 @@ namespace Cristea_Anamaria_Proiect.Pages.MedicalStaff
                 return NotFound();
             }
 
-            MedicalStaff = await _context.MedicalStaff.FindAsync(id);
+            MedicalStaff = await _context.MedicalStaff.Include(m => m.ConsultationRoom).FirstOrDefaultAsync(m => m.Id == id); ;
 
             if (MedicalStaff != null)
             {
+                if (_context.Patient.Include(c => c.AssignedDoctor).Any(c => c.AssignedDoctor.Id == id))
+                {
+                    ViewData["DeleteError"] = "You cannot delete a doctor assigned to a pacient. Update the patients for this doctor and then try again.";
+                    return Page();
+                }
+                if (_context.Appointment.Include(c => c.MedicalStaff).Any(c => c.MedicalStaff.Id == id))
+                {
+                    ViewData["DeleteError"] = "You cannot delete a doctor assigned to an appointment. Update the appointment for this doctor and then try again.";
+                    return Page();
+                }
                 _context.MedicalStaff.Remove(MedicalStaff);
                 await _context.SaveChangesAsync();
             }
